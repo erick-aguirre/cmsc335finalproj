@@ -114,7 +114,7 @@ app.post("/userLogin", async (request, response) => {
         dataWind: data.wind.speed
     };  
     await insertUser(client, databaseAndCollection, newUser)
-    response.render("showWeather", newApp);
+    response.render("showWeather", newUser);
 });
 
 app.post("/noUserLogin", async (request, response) => {
