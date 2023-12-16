@@ -72,6 +72,13 @@ app.get("/userLogin", (request, response) => {
     response.render("userLogin", variables);
 });
 
+app.get("/noUserLogin", (request, response) => {
+    const variables = {
+        portNum: `${portNumber}`
+    };
+    response.render("noUserLogin", variables);
+});
+
 app.get("/adminRemove", (request, response) => {
     const variables = {
         portNum: `${portNumber}`
@@ -108,6 +115,20 @@ app.post("/userLogin", async (request, response) => {
     };  
     await insertUser(client, databaseAndCollection, newUser)
     response.render("showWeather", newApp);
+});
+
+app.post("/noUserLogin", async (request, response) => {
+    const data = await checkWeather(request.body.city, request.body.temp);
+
+    const newUser = {
+        temp: request.body.temp, 
+        dataCity: data.name, 
+        dataTemp: data.main.temp, 
+        dataHum: data.main.humidity, 
+        dataWind: data.wind.speed
+    };  
+    await insertUser(client, databaseAndCollection, newUser)
+    response.render("noUserWeather", newUser);
 });
 
 app.post("/allUsers", async (request, response) => {
