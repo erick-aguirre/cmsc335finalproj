@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8" />
+	<title>Weather Data</title>
+</head>
+
+<body>
+	<h1>Here is the data we saved</h1>
+	<div>
+		<strong>Name: </strong><%- name %><br>
+		<strong>Email Address: </strong><%- email %><br>
+		<strong>City name: </strong><%- city %><br>
+		<strong>Temperature Preference:</strong><%- temp %>
+	</div>
+	<br>
+	<h1>Here is the weather data</h1>
+	<div>
+		<strong>City: </strong><%- dataCity %><br>
+		<strong>Temperature C or F depending on your preference: </strong><%- dataTemp %><br>
+		<strong>Humidity: </strong><%- dataHum %>%<br>
+		<strong>Wind:</strong><%- dataWind %> km/h or mph depending on preference
+	</div>
+	<div>
+		<a href="/">HOME</a>
+	<div>
+</body>
+
+</html>
