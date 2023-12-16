@@ -30,7 +30,7 @@ async function main() {
 }
 
 async function checkWeather(city, temp) {
-    const response = await fetch(apiUrl + temp + "&q=" + city + `$appid=${apiKey}`);
+    const response = await fetch(apiUrl + temp + "&q=" + city + `&appid=${apiKey}`);
     var data = await response.json();
     return data
 }
