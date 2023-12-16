@@ -11,15 +11,11 @@ process.stdin.setEncoding("utf8");
 let json;
 const userName = process.env.MONGO_DB_USERNAME;
 const password = process.env.MONGO_DB_PASSWORD;
-
-if (process.argv.length != 3) {
-    process.stdout.write("Usage summerCampServer.js portNumber\n");
-    process.exit(1);
-}
 const portNumber = 10000;
 const databaseAndCollection = {db: "CMSC335_DB", collection:"campApplicants"};
 const { MongoClient, ServerApiVersion } = require('mongodb');
-
+const apiKey = "58b3b72125cdaae9c019d1425ef126d1";
+const apiUrl = "https://api.openweathermap.org/data/2.5/weather?units=";
 
 async function main() {
     const uri = `mongodb+srv://${userName}:${password}@cimmanonroll.2xbkwdj.mongodb.net/?retryWrites=true&w=majority`;
@@ -31,6 +27,12 @@ async function main() {
     } finally {
         await client.close();
     }
+}
+
+async function checkWeather(city, temp) {
+    const response = await fetch(apiUrl + temp + "&q=" + city + `$appid=${apiKey}`);
+    var data = await response.json();
+    return data
 }
 
 async function insertApp(client, databaseAndCollection, newApp) {
@@ -45,11 +47,11 @@ async function deleteApps(client, databaseAndCollection) {
     return result.deletedCount;
 }
 
-async function findGPA(client, databaseAndCollection, gpaNum) {
-    let filter = {gpa: {$gte:gpaNum}};
+async function findUsers(client, databaseAndCollection, unit) {
+    let filter = {temp: unit};
     const result = await client.db(databaseAndCollection.db)
                         .collection(databaseAndCollection.collection)
-                        .find(filter, { projection: { name: 1, gpa: 1} });
+                        .find(filter, { projection: { name: 1, city: 1, temp: 1} });
     return result.toArray();
 }
 
@@ -71,11 +73,11 @@ app.get("/", (request, response) => {
     response.render("index");
 });
 
-app.get("/apply", (request, response) => {
+app.get("/userLogin", (request, response) => {
     const variables = {
         portNum: `${portNumber}`
     };
-    response.render("apply", variables);
+    response.render("userLogin", variables);
 });
 
 app.get("/adminRemove", (request, response) => {
@@ -85,11 +87,11 @@ app.get("/adminRemove", (request, response) => {
     response.render("adminRemove", variables);
 });
 
-app.get("/adminGFA", (request, response) => {
+app.get("/allUsers", (request, response) => {
     const variables = {
         portNum: `${portNumber}`
     };
-    response.render("adminGFA", variables);
+    response.render("allUsers", variables);
 });
 
 app.get("/reviewApplication", (request, response) => {
@@ -106,15 +108,21 @@ app.post("/adminRemove", async (request, response) => {
     response.render("processAdminRemove", {num});
 });
 
-app.post("/apply", async (request, response) => {
+app.post("/userLogin", async (request, response) => {
+    const data = await checkWeather(request.body.city, request.body.temp);
+
     const newApp = {
         name: request.body.name, 
         email: request.body.email, 
-        gpa: Number(request.body.gpa), 
-        backgroundInfo: request.body.backgroundInfo
+        city: request.body.city, 
+        temp: request.body.temp, 
+        dataCity: data.name, 
+        dataTemp: data.main.temp, 
+        dataHum: data.main.humidity, 
+        dataWind: data.wind.speed
     };  
     await insertApp(client, databaseAndCollection, newApp)
-    response.render("processApplication", newApp);
+    response.render("showWeather", newApp);
 });
 
 app.post("/reviewApplication", async (request, response) => {
@@ -128,37 +136,20 @@ app.post("/reviewApplication", async (request, response) => {
     response.render("processReviewApplication", variables);
 });
 
-app.post("/adminGFA", async (request, response) => {
-    const gpaArr = await findGPA(client, databaseAndCollection, Number(request.body.gpa));
+app.post("/allUsers", async (request, response) => {
+    const gpaArr = await findUsers(client, databaseAndCollection, request.body.temp);
     let table = `<table border="1"><tr><th>Name</th><th>GPA</th></tr>`;
-    gpaArr.forEach((student) => {
-        table += `<tr><td>${student.name}</td><td>${student.gpa}</td></tr>`;
+    gpaArr.forEach((user) => {
+        table += `<tr><td>${user.name}</td><td>${user.city}</td><td>${user.temp}</td></tr>`;
     });
     table += `</table>`;
     
     const variables = {
         table: `${table}`
     };
-    response.render("processAdminGFA", variables);
+    response.render("sameUsers", variables);
 });
 
 app.listen(portNumber);
-console.log(`Web server started and running at http://localhost:${portNumber}`);
-const prompt = "Type stop to shutdown the server: ";
-process.stdout.write(prompt);
-process.stdin.on("readable", function () {
-    let dataInput = process.stdin.read();
-    if (dataInput !== null) {
-      let command = dataInput.trim();
-      if (command === "stop") {
-        process.stdout.write("Shutting down the server\n");
-        process.exit(0);
-      } else {
-        process.stdout.write(`Invalid command: ${dataInput}`);
-      }
-      process.stdout.write(prompt);
-      process.stdin.resume();
-    }
-});
 
 main().catch(console.error);
