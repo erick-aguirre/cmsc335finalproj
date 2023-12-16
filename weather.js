@@ -35,7 +35,7 @@ async function checkWeather(city, temp) {
     return data
 }
 
-async function insertApp(client, databaseAndCollection, newApp) {
+async function insertUser(client, databaseAndCollection, newApp) {
     await client.db(databaseAndCollection.db).collection(databaseAndCollection.collection).insertOne(newApp);
 }
 
@@ -96,7 +96,7 @@ app.post("/adminRemove", async (request, response) => {
 app.post("/userLogin", async (request, response) => {
     const data = await checkWeather(request.body.city, request.body.temp);
 
-    const newApp = {
+    const newUser = {
         name: request.body.name, 
         email: request.body.email, 
         city: request.body.city, 
@@ -106,7 +106,7 @@ app.post("/userLogin", async (request, response) => {
         dataHum: data.main.humidity, 
         dataWind: data.wind.speed
     };  
-    await insertApp(client, databaseAndCollection, newApp)
+    await insertUser(client, databaseAndCollection, newUser)
     response.render("showWeather", newApp);
 });
 
