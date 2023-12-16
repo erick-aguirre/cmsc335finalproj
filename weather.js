@@ -12,7 +12,7 @@ let json;
 const userName = process.env.MONGO_DB_USERNAME;
 const password = process.env.MONGO_DB_PASSWORD;
 const portNumber = 10000;
-const databaseAndCollection = {db: "CMSC335_DB", collection:"campApplicants"};
+const databaseAndCollection = {db: "CMSC335_DB", collection:"finalProject"};
 const { MongoClient, ServerApiVersion } = require('mongodb');
 const apiKey = "58b3b72125cdaae9c019d1425ef126d1";
 const apiUrl = "https://api.openweathermap.org/data/2.5/weather?units=";
@@ -55,14 +55,6 @@ async function findUsers(client, databaseAndCollection, unit) {
     return result.toArray();
 }
 
-async function review(client, databaseAndCollection, studentEmail) {
-    let filter = {email:studentEmail};
-    const result = await client.db(databaseAndCollection.db)
-                        .collection(databaseAndCollection.collection)
-                        .findOne(filter);
-    return result;
-}
-
 const uri = `mongodb+srv://${userName}:${password}@cimmanonroll.2xbkwdj.mongodb.net/?retryWrites=true&w=majority`;
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
 
@@ -94,13 +86,6 @@ app.get("/allUsers", (request, response) => {
     response.render("allUsers", variables);
 });
 
-app.get("/reviewApplication", (request, response) => {
-    const variables = {
-        portNum: `${portNumber}`
-    };
-    response.render("reviewApplication", variables);
-});
-
 app.use(bodyParser.urlencoded({extended:false}));
 
 app.post("/adminRemove", async (request, response) => {
@@ -123,17 +108,6 @@ app.post("/userLogin", async (request, response) => {
     };  
     await insertApp(client, databaseAndCollection, newApp)
     response.render("showWeather", newApp);
-});
-
-app.post("/reviewApplication", async (request, response) => {
-    const student = await review(client, databaseAndCollection, request.body.email);
-    const variables = {
-        name: student.name, 
-        email: student.email, 
-        gpa: student.gpa, 
-        backgroundInfo: student.backgroundInfo
-    };
-    response.render("processReviewApplication", variables);
 });
 
 app.post("/allUsers", async (request, response) => {
