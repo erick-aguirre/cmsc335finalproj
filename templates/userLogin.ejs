@@ -6,27 +6,175 @@
 	<title>User Login</title>
 </head>
 
+<style>
+	@import url('https://fonts.googleapis.com/css2?family=Lato&family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+
+	body, html {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+	align-content: center;
+	font-family: 'Poppins', sans-serif;
+}
+
+body {
+	background: rgb(131,58,180);
+	background: linear-gradient(90deg, rgba(131,58,180,1) 0%, rgba(253,29,29,1) 50%, rgba(252,176,69,1) 100%);
+}
+
+h1 {
+	font-weight: 800;
+  color: -webkit-linear-gradient(#eee, #333);
+}
+
+h2 {
+	font-size: large;
+	font-weight: 500;
+	color: rgba(0, 0, 0, 1);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+a {
+  background:
+    linear-gradient(
+      to right,
+      rgba(0, 100, 200, 1),
+      rgba(0, 100, 200, 1)
+    ),
+    linear-gradient(
+      to right,
+      rgba(255, 0, 0, 1),
+      rgba(255, 0, 180, 1),
+      rgba(0, 100, 200, 1)
+  );
+  background-size: 100% 3px, 0 3px;
+  background-position: 100% 100%, 0 100%;
+  background-repeat: no-repeat;
+  transition: background-size 400ms;
+}
+
+a:hover {
+  background-size: 0 3px, 100% 3px;
+}
+
+
+.container {
+    text-align: center;
+    width: 50%; 
+    padding: 3rem;
+	background-color: rgb(255, 255, 255);
+ 	box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+	border-radius: 5%;
+
+	display: flex;
+	flex-direction: column;
+    justify-content: center;
+    align-items: center;
+	align-content: center;
+}
+
+.inner-container {
+	width: 100%;
+}
+
+.inputs {
+	display: flex;
+}
+
+
+form {
+    display: flex;
+    flex-direction: column;
+	margin: 0 20rem;
+}
+
+label {
+    display: block;
+    color: #8597a3;
+    margin-bottom: 0.5rem;
+}
+
+input[type="text"], input[type="email"], select {
+    border: 0;
+    background-color: transparent;
+    border-bottom: 2px solid #eee;
+    font: inherit;
+    font-size: 1rem;
+    padding: 0.25rem 0;
+    margin-bottom: 0.5rem;
+}
+
+input[type="text"]:focus, input[type="email"]:focus, select:focus {
+    outline: 0;
+    border-bottom-color: #6658d3;
+}
+
+input[type="reset"] {
+	margin-right: 1rem;
+}
+
+input[type="reset"], input[type="submit"] {
+    font: inherit;
+    font-size: 1rem;
+    padding: 0.75em;
+    font-weight: 500;
+    background-color: #6658d3;
+    border-radius: 6px;
+    color: #FFF;
+    border: 0;
+    cursor: pointer;
+	margin-top: 1rem;
+	margin-bottom: 2rem;
+}
+
+input[type="reset"]:focus, input[type="submit"]:focus {
+    outline: 0;
+}
+
+select {
+  border: 0;
+  outline: 0;
+  font: inherit;
+  padding: 1rem 2rem 1rem 1rem;
+  color: black;
+  border-radius: 0.25em;
+  box-shadow: 0 0 1em 0 rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+
+  option {
+    color: inherit;
+  }
+}
+</style>
+
+
 <body>
-	<h1>Application</h1>
-	<form action="https://cmsc335-final-2tgl.onrender.com/userLogin" method="post" onsubmit="return window.confirm('You will be added to our database when you press confirm. Are you sure?');">
-		<fieldset>
-			<label><strong>Name:</strong></label> <input type="text" name="name" required/>
-			<label><strong>Email Address:</strong></label> <input type="email" name="email" required/>
-			<br><br>
-			<label><strong>City name:</strong></label> <input type="text" name="city" required/>
-			<br><br>
-			<select name="temp" id="temp" required>
-				<option value="imperial">Fahrenheit</option>
-				<option value="metric">Celcius</option>
-			</select>
-			<br>
-		</fieldset>
-		<br>
-		<input type="reset" />
-		<input type="submit" value="Submit Application"/>
-		<br>
-		<a href="/">HOME</a>
-	</form>		
+	<div class="container">
+		<h1>Application</h1>
+			<form action="https://cmsc335-final-2tgl.onrender.com/userLogin" method="post" onsubmit="return window.confirm('You will be added to our database when you press confirm. Are you sure?');">
+				<label><strong>Name:</strong></label> <input type="text" name="name" required/>
+				<label><strong>Email Address:</strong></label> <input type="email" name="email" required/>
+				<label><strong>City name:</strong></label> <input type="text" name="city" required/>
+				<select name="temp" id="temp" required>
+					<option value="imperial">Fahrenheit</option>
+					<option value="metric">Celcius</option>
+				</select>
+			</fieldset>
+
+			<div class="inputs">
+				<input type="reset" />
+				<input type="submit" value="Submit Application"/>
+			</div>
+			
+			<a href="/">HOME</a>
+		</form>	
+	</div>
 </body>
 
 </html>

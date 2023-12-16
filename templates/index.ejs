@@ -6,15 +6,132 @@
 	<title>Weather App</title>
 </head>
 
+<style>
+	@import url('https://fonts.googleapis.com/css2?family=Lato&family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+
+	body, html {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+	align-content: center;
+	font-family: 'Poppins', sans-serif;
+}
+
+body {
+	background: rgb(131,58,180);
+	background: linear-gradient(90deg, rgba(131,58,180,1) 0%, rgba(253,29,29,1) 50%, rgba(252,176,69,1) 100%);
+}
+
+h1 {
+	font-weight: 800;
+  color: -webkit-linear-gradient(#eee, #333);
+}
+
+h2 {
+	font-size: large;
+	font-weight: 500;
+	color: rgba(0, 0, 0, 1);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+a {
+  background:
+    linear-gradient(
+      to right,
+      rgba(0, 100, 200, 1),
+      rgba(0, 100, 200, 1)
+    ),
+    linear-gradient(
+      to right,
+      rgba(255, 0, 0, 1),
+      rgba(255, 0, 180, 1),
+      rgba(0, 100, 200, 1)
+  );
+  background-size: 100% 3px, 0 3px;
+  background-position: 100% 100%, 0 100%;
+  background-repeat: no-repeat;
+  transition: background-size 400ms;
+}
+
+a:hover {
+  background-size: 0 3px, 100% 3px;
+}
+
+
+.container {
+    text-align: center;
+    width: 50%; 
+    padding: 3rem;
+	background-color: rgb(255, 255, 255);
+ 	box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+	border-radius: 5%;
+
+	display: flex;
+	flex-direction: column;
+    justify-content: center;
+    align-items: center;
+	align-content: center;
+}
+
+.inner {
+	text-align: center;
+    padding: 2rem;
+	background: rgb(168,123,199);
+	background: linear-gradient(90deg, rgba(168,123,199,0.3) 0%, rgba(255,219,168,0.2) 100%);
+ 	box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+	border-radius: 5%;
+}
+
+.inner h1 {
+	font-size: medium;
+}
+.inner h2 {
+	margin-top: 1rem;
+	margin-bottom: 0rem;
+	white-space: nowrap;
+}
+
+.inner h3 {
+	margin-bottom: 0;
+	padding-bottom: 0;
+	text-decoration: underline;
+}
+
+ul {
+    list-style-type: none;
+    padding-left: 0; 
+}
+
+li { 
+    padding: 10px; 
+    margin-bottom: 10px; 
+    background-color: white; 
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1); 
+}
+
+
+</style>
+
 <body>
-	<h1>Login and add yourself to the weather database!</h1>
-	<h2>Login and show data: <a href="/userLogin">Login</a></h2><br>
-	<h2>Show data without logging in: <a href="/noUserLogin">Show Weather</a></h2>
-	<h2>Check database</h2>
-	<ul>
-		<li>User: List of all members <a href="/allUsers">List</a></li>
-		<li>Admin: To remove all users <a href="/adminRemove">Remove Users</a></li>
-	</ul>
+	<div class="container">
+		<h1>Login and add yourself to the weather database!</h1>
+		<h2>Login and show data: <a href="/userLogin">Login</a></h2><br>
+		<div class="inner">
+			<h2>Show data without logging in: <a href="/noUserLogin">Show Weather</a></h2>
+				<h3>Check database:</h3>
+				<ul>
+					<li>User: List of all members <a href="/allUsers">List</a></li>
+					<li>Admin: To remove all users <a href="/adminRemove">Remove Users</a></li>
+				</ul>
+		</div>
+		
+	</div>
 </body>
 
 </html>

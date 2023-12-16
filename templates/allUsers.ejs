@@ -5,15 +5,123 @@
 	<meta charset="utf-8" />
 	<title>All Users</title>
 </head>
+<style>
+	@import url('https://fonts.googleapis.com/css2?family=Lato&family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
 
+	body, html {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+	align-content: center;
+	font-family: 'Poppins', sans-serif;
+}
+
+body {
+	background: rgb(131,58,180);
+	background: linear-gradient(90deg, rgba(131,58,180,1) 0%, rgba(253,29,29,1) 50%, rgba(252,176,69,1) 100%);
+}
+
+h1 {
+	font-weight: 800;
+  color: -webkit-linear-gradient(#eee, #333);
+}
+
+h2 {
+	font-size: large;
+	font-weight: 500;
+	color: rgba(0, 0, 0, 1);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+a {
+  background:
+    linear-gradient(
+      to right,
+      rgba(0, 100, 200, 1),
+      rgba(0, 100, 200, 1)
+    ),
+    linear-gradient(
+      to right,
+      rgba(255, 0, 0, 1),
+      rgba(255, 0, 180, 1),
+      rgba(0, 100, 200, 1)
+  );
+  background-size: 100% 3px, 0 3px;
+  background-position: 100% 100%, 0 100%;
+  background-repeat: no-repeat;
+  transition: background-size 400ms;
+}
+
+a:hover {
+  background-size: 0 3px, 100% 3px;
+}
+
+
+.container {
+    text-align: center;
+    width: 50%; 
+    padding: 3rem;
+	background-color: rgb(255, 255, 255);
+ 	box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+	border-radius: 5%;
+
+	display: flex;
+	flex-direction: column;
+    justify-content: center;
+    align-items: center;
+	align-content: center;
+}
+
+
+form {
+    display: flex;
+    flex-direction: column;
+	margin: 0 20rem;
+}
+
+label {
+    display: block;
+    color: #8597a3;
+    margin-bottom: 0.5rem;
+}
+
+
+input[type="submit"] {
+    font: inherit;
+    font-size: 1rem;
+    padding: 0.75em;
+    font-weight: 500;
+    background-color: #6658d3;
+    border-radius: 6px;
+    color: #FFF;
+    border: 0;
+    cursor: pointer;
+	margin-top: 1rem;
+	margin-bottom: 2rem;
+}
+
+input[type="submit"]:focus {
+    outline: 0;
+}
+
+
+</style>
 <body>
-	<h1>Find other users that have the same temperature preferences</h1>
+	<div class="container">
+		<h1>Find other users that have the same temperature preferences</h1>
 	<form action="https://cmsc335-final-2tgl.onrender.com/allUsers" method="post">
 		<label><strong>Find similar users by typing imperial or metric:</strong></label> <input type="text" name="temp"/>
 		<input type="submit" value="Submit Request"/>
 		<br>
 		<a href="/">HOME</a>
-	</form>		
+	</form>
+	</div>
 </body>
 
 </html>
