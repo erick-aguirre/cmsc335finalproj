@@ -138,7 +138,7 @@ app.post("/reviewApplication", async (request, response) => {
 
 app.post("/allUsers", async (request, response) => {
     const gpaArr = await findUsers(client, databaseAndCollection, request.body.temp);
-    let table = `<table border="1"><tr><th>Name</th><th>GPA</th></tr>`;
+    let table = `<table border="1"><tr><th>Name</th><th>City</th><th>Temperature</th></tr>`;
     gpaArr.forEach((user) => {
         table += `<tr><td>${user.name}</td><td>${user.city}</td><td>${user.temp}</td></tr>`;
     });
