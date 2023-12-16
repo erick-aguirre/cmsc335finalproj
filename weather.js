@@ -127,7 +127,6 @@ app.post("/noUserLogin", async (request, response) => {
         dataHum: data.main.humidity, 
         dataWind: data.wind.speed
     };  
-    await insertUser(client, databaseAndCollection, newUser)
     response.render("noUserWeather", newUser);
 });
 
