@@ -39,7 +39,7 @@ async function insertUser(client, databaseAndCollection, newApp) {
     await client.db(databaseAndCollection.db).collection(databaseAndCollection.collection).insertOne(newApp);
 }
 
-async function deleteApps(client, databaseAndCollection) {
+async function deleteAllUsers(client, databaseAndCollection) {
     const result = await client.db(databaseAndCollection.db)
                    .collection(databaseAndCollection.collection)
                    .deleteMany();
@@ -89,7 +89,7 @@ app.get("/allUsers", (request, response) => {
 app.use(bodyParser.urlencoded({extended:false}));
 
 app.post("/adminRemove", async (request, response) => {
-    const num = await deleteApps(client, databaseAndCollection);
+    const num = await deleteAllUsers(client, databaseAndCollection);
     response.render("processAdminRemove", {num});
 });
 
