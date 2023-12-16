@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8" />
+	<title>User Login</title>
+</head>
+
+<body>
+	<h1>Application</h1>
+	<form action="https://cmsc335-final-2tgl.onrender.com/userLogin" method="post" onsubmit="return window.confirm('You will be added to our database when you press confirm. Are you sure?');">
+		<fieldset>
+			<label><strong>Name:</strong></label> <input type="text" name="name" required/>
+			<label><strong>Email Address:</strong></label> <input type="email" name="email" required/>
+			<br><br>
+			<label><strong>City name:</strong></label> <input type="text" name="city" required/>
+			<br><br>
+			<select name="temp" id="temp" required>
+				<option value="imperial">Fahrenheit</option>
+				<option value="metric">Celcius</option>
+			</select>
+			<br>
+		</fieldset>
+		<br>
+		<input type="reset" />
+		<input type="submit" value="Submit Application"/>
+		<br>
+		<hr>
+		<a href="/">HOME</a>
+	</form>		
+</body>
+
+</html>
